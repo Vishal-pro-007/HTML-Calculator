@@ -28,4 +28,4 @@ There’s a secret waiting for you.
 
 ---
 
-**Inspired by my Fundementals of web application Development:** professor Dr. Selva Sachein at Saveetha Engineering college
+**Inspired by my Fundementals of web application Development professor**: Dr. Selva Sachein at Saveetha Engineering college
