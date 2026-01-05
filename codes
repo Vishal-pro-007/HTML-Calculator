@@ -1,0 +1,277 @@
+#CALC.HTML:
+<html>
+    <head>
+        <title>Calculator</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="text">
+            <h1>Vishal's Calculator</h1>
+        </div>
+        <div id="calculator">
+            <input id="display" readonly>
+            <div id="keys">
+                <button onclick="appendToDisplay('+')">+</button>
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button onclick="appendToDisplay('-')">-</button>
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button onclick="appendToDisplay('*')">*</button>
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button onclick="appendToDisplay('/')">/</button>
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                <button onclick="solve()">=</button>
+                <button onclick="clearDisplay()">C</button>
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#STYLES.CSS
+#calculator{
+    font-family: Arial, sans-serif;
+    background-color: rgb(34, 34, 34);
+    border-radius: 15px;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin: auto;
+}
+
+
+
+#keys{
+    display: grid;
+    grid-template-columns: repeat(4, 0fr);
+    gap: 15px;
+    padding: 20px;
+
+}
+
+button{
+    width: 100px;
+    height: 100px;
+    border-radius: 13px;
+    border: none;
+    background-color: rgb(241, 133, 8);
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#display{
+    width: 100%;
+    padding: 20px;
+    font-size: 5rem;
+    text-align: left;
+    border: none;
+    background-color: rgb(43, 42, 42);
+    color: rgb(250, 249, 249);
+}
+
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(56, 54, 54);
+}
+
+.text{
+    position: fixed;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    right: 1px;
+    bottom: 500px;
+    left: -1500px;
+}
+
+button:hover{
+    background-color: rgb(255, 165, 0);
+}
+
+button:active{
+    background-color: rgb(255, 140, 0);
+}
+
+button:hover {
+    transform: scale(1.09);
+    background-color: rgb(255, 165, 0);
+    transition: transform 0.2s;
+}
+
+button:active {
+    animation: bounce 0.3s;
+
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+#display {
+    position: relative;
+    overflow: hidden;
+}
+
+#display.slide {
+    animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+    from {transform: translateX(20px); opacity: 0;}
+    to {transform: translateX(0); opacity: 1;}
+}
+
+#display.pop {
+animation: popGlow 0.25s ease;
+}
+
+@keyframes popGlow {
+    0%   { transform: scale(1.01); text-shadow: 0 0 10px orange; }
+    100% { transform: scale(); text-shadow: none; }
+}
+
+#display.error {
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+0%   { transform: translateX(0); }
+25%  { transform: translateX(-5px); }
+50%  { transform: translateX(5px); }
+75%  { transform: translateX(-5px); }
+100% { transform: translateX(0); }
+}
+
+#display.error {
+animation: shake 0.4s ease;
+  background-color: #e91818; /* red flash */
+color: white;
+}
+
+#display.easter {
+animation: popName 0.6s ease;
+  color: orange; /* highlight */
+}
+
+@keyframes popName {
+0%   { transform: scale(0.8); opacity: 0; }
+50%  { transform: scale(1.2); opacity: 1; }
+100% { transform: scale(1); opacity: 1; }
+}
+
+#display.spin {
+animation: spinInfinity 1s linear infinite;
+  color: orange; /* highlight Infinity */
+}
+
+@keyframes spinInfinity {
+from { transform: rotate(0deg); }
+to   { transform: rotate(360deg); }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#INDEX.JS
+const display = document.getElementById("display");
+
+function appendToDisplay(input){
+    display.value += input;
+    display.classList.remove("slide");
+    void display.offsetWidth;
+    display.classList.add("slide");
+}
+
+function clearDisplay(){
+    display.value = "";
+}
+
+function solve(){
+    try{
+        display.value = eval(display.value);
+    }
+    catch(error){
+        display.value = "Invalid Entry";
+    }
+}
+
+function appendToDisplay(input) {
+    display.value += input;
+    display.classList.remove("pop");
+    void display.offsetWidth;
+    display.classList.add("pop");
+}
+
+function solve() {
+    try {
+        display.value = eval(display.value);
+    } catch (error) {
+        // Trigger shake animation
+        display.classList.add("error");
+
+        // Remove the class after animation ends so it can be reused
+        setTimeout(() => {
+            display.classList.remove("error");
+        }, 400);
+    }
+}
+
+function appendToDisplay(input) {
+    display.value += input;
+
+    // Easter egg: if the user types 7092007, show your name
+    if (display.value === "7092007") {
+        display.value = "Vishal 🎉";
+    }
+}
+
+if (display.value === "7092007") {
+    display.value = "Vishal 🎉";
+    display.classList.add("easter");
+
+    setTimeout(() => {
+        display.classList.remove("easter");
+    }, 600);
+}
+
+if (display.value === "7092007") {
+    alert("Happy Birthday Vishal! 🎂");
+}
+
+function solve() {
+    try {
+        let result = eval(display.value);
+
+        if (result === Infinity || result === -Infinity) {
+            display.value = "Infinity";
+            display.classList.add("spin");
+
+            // Stop spinning after 3 seconds (optional)
+            setTimeout(() => {
+                display.classList.remove("spin");
+            }, 1000);
+        } else {
+            display.value = result;
+        }
+    } catch (error) {
+        // Handle invalid input with shake
+        display.classList.add("error");
+        setTimeout(() => {
+            display.classList.remove("error");
+        }, 400);
+    }
+}
+
+
