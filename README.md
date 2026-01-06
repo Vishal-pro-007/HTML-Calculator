@@ -1,5 +1,7 @@
 # 🧮 Simple Calculator (Vishal Edition)
 
+**Inspired by my Fundementals of web application Development professor**: Dr. Selva Sachein at Saveetha Engineering college
+
 A sleek, playful calculator built with **HTML, CSS, and JavaScript** — but with a twist.  
 This isn’t just math… it’s math with **animations and easter eggs**
 
@@ -28,4 +30,8 @@ There’s a secret waiting for you.
 
 ---
 
-**Inspired by my Fundementals of web application Development professor**: Dr. Selva Sachein at Saveetha Engineering college
+**OUTPUT**
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/5a4ed543-0806-4c1d-8d3a-f97bd932f977" />
+
+
+
